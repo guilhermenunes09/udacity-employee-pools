@@ -1,7 +1,15 @@
+import { useEffect, Fragment } from 'react';
+import { connect } from "react-redux";
 import './App.css';
 import QuestionsPage from './components/questionsPage';
+import { handleInitialData } from './store/actions/shared';
 
-function App() {
+const App = (props) => {
+
+  useEffect(() => {
+    props.dispatch(handleInitialData());
+  }, []);
+
   return (
     <div className="App">
       <QuestionsPage />
@@ -9,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);

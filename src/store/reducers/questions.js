@@ -1,11 +1,11 @@
-//import { RECEIVE_POOLS } from "../actions/pools"
+import { RECEIVE_QUESTIONS } from "../actions/questions"
 
 export default function pools(state = {}, action) {
   switch (action.type) {
-    case 'RECEIVE_POOLS':
+    case RECEIVE_QUESTIONS:
       return {
         ...state,
-        ...action.pools
+        ...action.questions
       }
     default:
       return state
