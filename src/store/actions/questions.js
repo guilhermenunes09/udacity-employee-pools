@@ -1,5 +1,4 @@
 import { hideLoading } from "react-redux-loading-bar";
-import question from "../../components/question";
 import { 
   _getQuestions,
   _saveQuestion,

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { handleSaveQuestionAnswer } from "../store/actions/questions";
@@ -14,6 +15,8 @@ const withRouter = (Component) => {
 };
 
 const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
+  const navigate = useNavigate();
+  
   const submitOptionOne = (e) => {
     e.preventDefault();
     if (!question.optionOne.votes.includes(authedUser) && 
@@ -29,6 +32,12 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
           dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
       }
   }
+
+  useEffect(() => {
+    if(!authedUser) {
+      navigate('/login');
+    }
+  }, [])
 
   return (
     <div className="poll-page">

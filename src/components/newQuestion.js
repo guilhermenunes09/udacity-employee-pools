@@ -1,10 +1,19 @@
 import { connect } from "react-redux";
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { handleAddQuestion } from '../store/actions/questions';
+import { useNavigate } from "react-router-dom";
 
 const NewQuestion = ({ dispatch, authedUser }) => {
   const firstOptionInput = useRef();
   const secondOptionInput = useRef();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!authedUser) {
+      navigate('/login');
+    }
+  }, [])
 
   const handleSubmit = () => {
     const firstOption = firstOptionInput.current.value;
@@ -16,18 +25,23 @@ const NewQuestion = ({ dispatch, authedUser }) => {
     secondOptionInput.current.value = "";
   }
 
-
   return (
-    <div>
-      <h3>Would You Rather</h3>
+    <div className="poll-page">
+      <h3 className="h=title">Would You Rather</h3>
 
-      <label>First Option</label>
-      <input ref={firstOptionInput} />
+      <div className="poll-options-new">
+        <div className="option-new">
+          <label>First Option</label>
+          <input ref={firstOptionInput} />
+        </div>
 
-      <label>Second Option</label>
-      <input ref={secondOptionInput} />
+        <div className="option-new">
+          <label>Second Option</label>
+          <input ref={secondOptionInput} />
+        </div>
+      </div>
 
-      <button onClick={handleSubmit}>
+      <button className="btn-action" onClick={handleSubmit}>
         Submit
       </button>
     </div>

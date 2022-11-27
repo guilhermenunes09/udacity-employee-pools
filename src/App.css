@@ -68,6 +68,8 @@ ul {
 }
 
 .btn-action {
+  width: 200px;
+  align-self: center;
   font-size:medium;
   cursor: pointer;
   margin-top: 2em;
@@ -110,6 +112,11 @@ ul {
   display: flex;
 }
 
+.poll-options-new {
+  justify-content: center;
+  display: flex;
+}
+
 .option {
   width: 25em;
   margin: .5em;
@@ -120,6 +127,16 @@ ul {
   box-shadow:  -9px 9px 15px #d3dde2,
               9px -9px 15px #fdffff;
               
+}
+
+label {
+  display: block;
+}
+
+.option-new {
+  margin: .2em;
+  padding: .2em;
+  word-wrap: break-word;
 }
 
 h4 {
@@ -173,4 +190,19 @@ h4 {
   padding-top: 4em;
   border-color: #31a4d4;
   border-top: 1px solid #c4bebe;
+}
+
+.new-question-page {
+  justify-content: center;
+  text-align: center;
+}
+
+input {
+  height: 2em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-size: medium;
+  font-weight: bold;
+  padding-right: .4em;
+  padding-left: .4em;
 }

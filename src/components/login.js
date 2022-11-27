@@ -20,13 +20,15 @@ const Login = ({ dispatch }) => {
   }
 
   return (
-    <div>
+    <div className="dashboard">
+      <h3 className="h=title">Login</h3>
       <label>Username</label>
-      <input ref={userInput} />
+      <input className='login-input' ref={userInput} />
       <label>password</label>
-      <input ref={passwordInput} />
-
-      <button onClick={handleSubmit}>Submit</button>
+      <input type="password" className='login-input' ref={passwordInput} />
+      <div>
+        <button className='btn-action' onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   )
 }

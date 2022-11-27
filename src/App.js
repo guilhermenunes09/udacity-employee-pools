@@ -26,16 +26,12 @@ const App = (props) => {
             <Route path="/login" element={<Login />} />
           </Routes>
         )}
-
-        { props.loading === true ? null : (
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/new" element={<NewQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
-            
           </Routes>
-        )}
       </div>
     </Fragment>
   );
