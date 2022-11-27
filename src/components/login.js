@@ -3,8 +3,6 @@ import { useRef } from 'react';
 import { handleAuthenticate } from '../store/actions/authedUser';
 
 const Login = ({ dispatch }) => {
-
-
   const userInput = useRef();
   const passwordInput = useRef();
 

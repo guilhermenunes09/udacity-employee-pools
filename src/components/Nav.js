@@ -1,8 +1,11 @@
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../store/actions/authedUser";
 
-const Nav = (props) => {
-  console.log('NAV PROPS', props)
+const Nav = ({dispatch, authedUser}) => {
+  const handleLogout = () => {
+    dispatch(logout());
+  }
 
   return (
     <div>
@@ -14,15 +17,15 @@ const Nav = (props) => {
 
       <div>
         Avatar
-        {props.authedUser}
+        {authedUser}
       </div>
 
       <div>
-        { props.authedUser && (
-          <div>Logout</div>
+        { authedUser && (
+          <div onClick={handleLogout}>Logout</div>
         )}
-        { !props.authedUser && (
-          <div>Login</div>
+        { !authedUser && (
+          <Link to={'/login'}>Login</Link>
         )}
       </div>
     </div>
@@ -34,6 +37,5 @@ const mapStateToProps = ({ authedUser }) => {
     authedUser
   };
 }
-
 
 export default connect(mapStateToProps)(Nav);
