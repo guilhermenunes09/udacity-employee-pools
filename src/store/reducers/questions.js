@@ -5,8 +5,6 @@ import {
 } from "../actions/questions"
 
 export default function questions(state = {}, action) {
-  console.log('check state', state)
-  console.log('check action', action)
   switch (action.type) {
     case RECEIVE_QUESTIONS:
       return {

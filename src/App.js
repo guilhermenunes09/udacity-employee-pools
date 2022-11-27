@@ -7,6 +7,8 @@ import { Routes, Route } from 'react-router-dom';
 import QuestionPage from './components/questionPage';
 import NewQuestion from './components/newQuestion';
 import LoadingBar from "react-redux-loading-bar";
+import Nav from './components/Nav';
+import Leaderboard from './components/leaderboard';
 
 const App = (props) => {
   useEffect(() => {
@@ -17,11 +19,13 @@ const App = (props) => {
     <Fragment>
       <LoadingBar />
       <div className="App">
+        <Nav />
         { props.loading === true ? null : (
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/new" element={<NewQuestion />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
         )}
       </div>

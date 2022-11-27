@@ -13,7 +13,7 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const QuestionPage = ({dispatch, question, users, id}) => {
+const QuestionPage = ({dispatch, question, users, id, avatar}) => {
   const submitOptionOne = (e) => {
     e.preventDefault();
     dispatch(handleSaveQuestionAnswer(id, "optionOne"));
@@ -27,6 +27,7 @@ const QuestionPage = ({dispatch, question, users, id}) => {
   return (
     <div>
       <h3>Poll by {users[question.author].name}</h3>
+      <div>{users[question.author].avatarURL}</div>
       <div>
         {question.optionOne.text}
         <button onClick={submitOptionOne}>Option 1</button>
