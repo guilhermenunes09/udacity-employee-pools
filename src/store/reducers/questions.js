@@ -21,6 +21,14 @@ export default function questions(state = {}, action) {
     case SAVE_QUESTION_ANSWER:
       const { answer } = action;
 
+      /* Check if authenticated user already voted */
+      if(
+        state[answer.qid].optionOne.votes.includes(answer.authedUser) ||
+        state[answer.qid].optionTwo.votes.includes(answer.authedUser)
+      ) {
+        return state;
+      }
+
       return {
         ...state,
         [answer.qid]: {

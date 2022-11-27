@@ -13,10 +13,7 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-
-
 const QuestionPage = ({dispatch, question, users, id}) => {
-
   const submitOptionOne = (e) => {
     e.preventDefault();
     dispatch(handleSaveQuestionAnswer(id, "optionOne"));
