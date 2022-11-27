@@ -13,19 +13,19 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const QuestionPage = ({dispatch, question, users, id, avatar}) => {
+const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
   const submitOptionOne = (e) => {
     e.preventDefault();
-    if (!question.optionOne.votes.includes(question.author) && 
-        !question.optionTwo.votes.includes(question.author)) {
+    if (!question.optionOne.votes.includes(authedUser) && 
+        !question.optionTwo.votes.includes(authedUser)) {
           dispatch(handleSaveQuestionAnswer(id, "optionOne"));
       }
   }
   
   const submitOptionTwo = (e) => {
     e.preventDefault();
-    if (!question.optionOne.votes.includes(question.author) && 
-        !question.optionTwo.votes.includes(question.author)) {
+    if (!question.optionOne.votes.includes(authedUser) && 
+        !question.optionTwo.votes.includes(authedUser)) {
           dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
       }
   }
@@ -39,9 +39,12 @@ const QuestionPage = ({dispatch, question, users, id, avatar}) => {
         <div className="option">
           <h4>{question.optionOne.text}</h4>
           <button
-            className={question.optionOne.votes.includes(question.author) ? 'btn-pressed' : 'btn-action'}
+            className={question.optionOne.votes.includes(authedUser) ? 'btn-pressed' : 'btn-action'}
+            disabled={
+              question.optionOne.votes.includes(authedUser) ||
+              question.optionTwo.votes.includes(authedUser)
+            }
             onClick={submitOptionOne}
-            disabled={question.optionTwo.votes.includes(question.author)}
           >
               Option 1
           </button>
@@ -49,23 +52,35 @@ const QuestionPage = ({dispatch, question, users, id, avatar}) => {
         <div className="option">
           <h4>{question.optionTwo.text}</h4>
           <button
-            className={question.optionTwo.votes.includes(question.author) ? 'btn-pressed' : 'btn-action'}
+            className={question.optionTwo.votes.includes(authedUser) ? 'btn-pressed' : 'btn-action'}
+            disabled={
+              question.optionOne.votes.includes(authedUser) ||
+              question.optionTwo.votes.includes(authedUser)
+            }
             onClick={submitOptionTwo}
-            disabled={question.optionOne.votes.includes(question.author)}
           >
               Option 2
           </button>
         </div>
       </div>
+      <div className="poll-page-choice">
+        { question.optionOne.votes.includes(authedUser) && (
+          <div>Would You Rather <strong>{`${question.optionOne.text}`}</strong></div>
+        )}
+        { question.optionTwo.votes.includes(authedUser) && (
+          <div>Would You Rather <strong>{`${question.optionTwo.text}`}</strong></div>
+        )}
+      </div>
+
     </div>
   )
 }
 
-const mapStateToProps =({questions, users}, props) => {
+const mapStateToProps =({authedUser, questions, users}, props) => {
   const {id} = props.router.params;
   const question = questions[id];
   if(id) {
-    return { id, question, users }
+    return { id, question, users, authedUser }
   }
 
   return { question, users }
