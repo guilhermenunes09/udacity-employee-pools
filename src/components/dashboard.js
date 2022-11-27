@@ -1,6 +1,6 @@
 import { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import QuestionPage from "./questionPage";
+import Question from "./question";
 
 const Dashboard = (props) => {
 
@@ -11,7 +11,7 @@ const Dashboard = (props) => {
         {
           props.questionIds && props.questionIds.map((id) => (
             <li key={id}>
-              <QuestionPage id={id} />
+              <Question id={id} />
             </li>
           ))
         }

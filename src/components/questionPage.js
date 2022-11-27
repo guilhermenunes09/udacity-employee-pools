@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import Question from "./question";
+import { handleSaveQuestionAnswer } from "../store/actions/questions";
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
@@ -13,23 +13,43 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const QuestionPage = (props) => {
+
+
+const QuestionPage = ({dispatch, question, users, id}) => {
+
+  const submitOptionOne = (e) => {
+    e.preventDefault();
+    dispatch(handleSaveQuestionAnswer(id, "optionOne"));
+  }
+  
+  const submitOptionTwo = (e) => {
+    e.preventDefault();
+    dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
+  }
 
   return (
     <div>
-      <Question id={props.id} />
+      <h3>Poll by {users[question.author].name}</h3>
+      <div>
+        {question.optionOne.text}
+        <button onClick={submitOptionOne}>Option 1</button>
+      </div>
+      <div>
+        {question.optionTwo.text}
+        <button onClick={submitOptionTwo}>Option 2</button>
+      </div>
     </div>
   )
 }
 
-const mapStateToProps =({questions}, props) => {
+const mapStateToProps =({questions, users}, props) => {
   const {id} = props.router.params;
-  
+  const question = questions[id];
   if(id) {
-    return { id, questions }
+    return { id, question, users }
   }
 
-  return { questions }
+  return { question, users }
 }
 
 export default withRouter(connect(mapStateToProps)(QuestionPage));
