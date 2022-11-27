@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { handleAuthenticate } from '../store/actions/authedUser';
 
 const Login = ({ dispatch }) => {
+  const navigate = useNavigate();
   const userInput = useRef();
   const passwordInput = useRef();
 
@@ -10,7 +12,10 @@ const Login = ({ dispatch }) => {
     const user = userInput.current.value;
     const password = passwordInput.current.value;
 
-    dispatch(handleAuthenticate(user, password));
+    dispatch(handleAuthenticate(user, password)).then(() => {
+
+      navigate('/');
+    });
     passwordInput.current.value = "";
   }
 

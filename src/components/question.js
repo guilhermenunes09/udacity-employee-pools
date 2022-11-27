@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,11 +12,13 @@ const Question = (props) => {
   }
 
   return (
-    <div>
-      <h3>{props.question && props.question.author}</h3>
-      <div>{ formatDate(props.question && props.question.timestamp) }</div>
-      <button onClick={handleClick}>Show</button>
-    </div>
+    <Fragment>
+      <div className="small-question-card-content">
+        <h3>{props.question && props.question.author}</h3>
+        <div>{ formatDate(props.question && props.question.timestamp) }</div>
+        <button className="btn-action" onClick={handleClick}>Show</button>
+      </div>
+    </Fragment>
   )
 }
 

@@ -16,25 +16,46 @@ const withRouter = (Component) => {
 const QuestionPage = ({dispatch, question, users, id, avatar}) => {
   const submitOptionOne = (e) => {
     e.preventDefault();
-    dispatch(handleSaveQuestionAnswer(id, "optionOne"));
+    if (!question.optionOne.votes.includes(question.author) && 
+        !question.optionTwo.votes.includes(question.author)) {
+          dispatch(handleSaveQuestionAnswer(id, "optionOne"));
+      }
   }
   
   const submitOptionTwo = (e) => {
     e.preventDefault();
-    dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
+    if (!question.optionOne.votes.includes(question.author) && 
+        !question.optionTwo.votes.includes(question.author)) {
+          dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
+      }
   }
 
   return (
-    <div>
+    <div className="poll-page">
       <h3>Poll by {users[question.author].name}</h3>
       <div>{users[question.author].avatarURL}</div>
-      <div>
-        {question.optionOne.text}
-        <button onClick={submitOptionOne}>Option 1</button>
-      </div>
-      <div>
-        {question.optionTwo.text}
-        <button onClick={submitOptionTwo}>Option 2</button>
+
+      <div className="poll-options">
+        <div className="option">
+          <h4>{question.optionOne.text}</h4>
+          <button
+            className={question.optionOne.votes.includes(question.author) ? 'btn-pressed' : 'btn-action'}
+            onClick={submitOptionOne}
+            disabled={question.optionTwo.votes.includes(question.author)}
+          >
+              Option 1
+          </button>
+        </div>
+        <div className="option">
+          <h4>{question.optionTwo.text}</h4>
+          <button
+            className={question.optionTwo.votes.includes(question.author) ? 'btn-pressed' : 'btn-action'}
+            onClick={submitOptionTwo}
+            disabled={question.optionOne.votes.includes(question.author)}
+          >
+              Option 2
+          </button>
+        </div>
       </div>
     </div>
   )
