@@ -9,6 +9,7 @@ import NewQuestion from './components/newQuestion';
 import LoadingBar from "react-redux-loading-bar";
 import Nav from './components/Nav';
 import Leaderboard from './components/leaderboard';
+import Login from './components/login';
 
 const App = (props) => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const App = (props) => {
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/new" element={<NewQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         )}
       </div>
