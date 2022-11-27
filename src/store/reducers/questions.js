@@ -12,6 +12,7 @@ export default function questions(state = {}, action) {
         ...action.questions
       }
     case ADD_QUESTION:
+      console.log('ADD QUESTION TEST', state, action)
       return {
         ...state,
         [action.question.id]: action.question,

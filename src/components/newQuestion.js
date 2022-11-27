@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { useRef } from 'react';
 import { handleAddQuestion } from '../store/actions/questions';
 
-const NewQuestion = ({ dispatch, id }) => {
+const NewQuestion = ({ dispatch, authedUser }) => {
   const firstOptionInput = useRef();
   const secondOptionInput = useRef();
 
@@ -10,7 +10,7 @@ const NewQuestion = ({ dispatch, id }) => {
     const firstOption = firstOptionInput.current.value;
     const secondOption = secondOptionInput.current.value;
     
-    dispatch(handleAddQuestion(firstOption, secondOption, 'Guilherme'))
+    dispatch(handleAddQuestion(firstOption, secondOption, authedUser))
 
     firstOptionInput.current.value = "";
     secondOptionInput.current.value = "";
@@ -34,4 +34,10 @@ const NewQuestion = ({ dispatch, id }) => {
   )
 }
 
-export default connect()(NewQuestion);
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    authedUser
+  }
+}
+
+export default connect(mapStateToProps)(NewQuestion);
