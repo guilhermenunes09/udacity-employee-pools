@@ -26,7 +26,6 @@ ul {
 .navbar-menu {
   display: inline-flex;
   flex-direction: row;
-  
 }
 
 .navbar-menu li {
@@ -46,8 +45,8 @@ ul {
               -17px -17px 34px #ffffff;
 }
 
-.navbar-user {
-  padding: .5em;
+.navbar-login {
+  align-items: baseline;
 }
 
 .small-question-card {
@@ -186,8 +185,8 @@ h4 {
   width: 90%;
   color: #0c2b38;
   font-size: large;
-  margin-top: 4em;
-  padding-top: 4em;
+  margin-top: 2em;
+  padding-top: 2em;
   border-color: #31a4d4;
   border-top: 1px solid #c4bebe;
 }
@@ -205,4 +204,22 @@ input {
   font-weight: bold;
   padding-right: .4em;
   padding-left: .4em;
+}
+
+.nav-avatar {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: end;
+  padding-right: 1em;
+}
+
+.nav-avatar img {
+  margin-right: .5em;
+}
+
+.nav-username {
+  text-align: center;
+  justify-content: center;
+  align-self: center;
 }

@@ -42,8 +42,9 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
   return (
     <div className="poll-page">
       <h3>Poll by {users[question.author].name}</h3>
-      <div>{users[question.author].avatarURL}</div>
-
+      <div>
+        <img width={200} height={200} src={`\\${avatar}`} />
+      </div>
       <div className="poll-options">
         <div className="option">
           <h4>{question.optionOne.text}</h4>
@@ -85,11 +86,12 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
   )
 }
 
-const mapStateToProps =({authedUser, questions, users}, props) => {
+const mapStateToProps =({authedUser, questions, users}, props) => { 
   const {id} = props.router.params;
   const question = questions[id];
+  const avatar = users[question.author].avatarURL
   if(id) {
-    return { id, question, users, authedUser }
+    return { id, question, users, authedUser, avatar }
   }
 
   return { question, users }
