@@ -15,9 +15,9 @@ const Nav = ({dispatch, authedUser, user}) => {
   return (
     <div className="navbar">
       <ul className="navbar-menu">
-        <Link to={'/'}><li>Home</li></Link>
-        <Link to={'/leaderboard'}><li>Leaderboard</li></Link>
-        <Link to={'/add'}><li>New</li></Link>
+        <Link data-testid="nav-home" to={'/'}><li>Home</li></Link>
+        <Link data-testid="nav-leaderboard" to={'/leaderboard'}><li>Leaderboard</li></Link>
+        <Link data-testid="nav-new" to={'/add'}><li>New</li></Link>
       </ul>
 
       <ul className="nav-avatar">

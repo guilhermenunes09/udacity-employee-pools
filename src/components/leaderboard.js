@@ -30,13 +30,13 @@ const Leaderboard = ({ authedUser, users }) => {
                 <div className="leaderboard-user-card">
                   <img className="leaderboard-img" width={40} height={40} src={user.avatarURL}/>
                   <div>
-                    <div className="leaderboard-name">{ user.name }</div>            
+                    <div data-testid={`name-${user.id}`} className="leaderboard-name">{ user.name }</div>            
                     <div className="leaderboard-id"> { user.id } </div>
                   </div>
                 </div>
                 
               </td>
-              <td>{ Object.keys(user.answers).length }</td>
+              <td data-testid={`answer-${user.id}`}>{ Object.keys(user.answers).length }</td>
               <td>{ Object.keys(user.questions).length }</td>
             </tr>
           ))}
