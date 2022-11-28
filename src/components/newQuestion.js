@@ -23,6 +23,8 @@ const NewQuestion = ({ dispatch, authedUser }) => {
 
     firstOptionInput.current.value = "";
     secondOptionInput.current.value = "";
+
+    navigate('/');
   }
 
   return (

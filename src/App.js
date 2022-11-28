@@ -27,7 +27,7 @@ const App = (props) => {
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/questions/:question_id" exact element={<QuestionPage />} />
-            <Route path="/new" exact element={<NewQuestion />} />
+            <Route path="/add" exact element={<NewQuestion />} />
             <Route path="/leaderboard" exact element={<Leaderboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
@@ -41,7 +41,6 @@ const App = (props) => {
 
 const mapStateToProps = ({authedUser, loadingBar}) => {
   const loading = loadingBar.default;
-  console.log('loading', loading)
  
   return {
     loading,

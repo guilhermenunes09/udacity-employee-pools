@@ -1,20 +1,19 @@
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import Question from "./question";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = ({authedUser, questions, questionIds}) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if(!authedUser) {
-      navigate('/login');
-    }
-  }, [])
 
   return (
     <div className="dashboard">
-      <h3 className="h-title">New Questions</h3>
+      
+      { authedUser && (
+        <h3 className="h-title">New Questions</h3>
+      )}
+      { !authedUser && (
+        <h3 className="h-title">Questions</h3>
+      )}
+      
+
       <ul>
         {
           questionIds && questionIds.map((id) => {
@@ -31,7 +30,10 @@ const Dashboard = ({authedUser, questions, questionIds}) => {
         }
       </ul>
       
-      <h3 className="h-title">Answered</h3>
+      { authedUser && (
+        <h3 className="h-title">Answered</h3>
+      )}
+      
       <ul>
         {
           questionIds && questionIds.map((id) => {
