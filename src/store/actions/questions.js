@@ -5,7 +5,7 @@ import {
   _saveQuestionAnswer
 } from "../../utils/_DATA";
 
-import { saveUserAnswer } from "./users";
+import { saveUserAnswer, saveUserQuestion } from "./users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
@@ -50,14 +50,18 @@ export function handleSaveQuestionAnswer(qid, answer) {
 }
 
 export function handleAddQuestion(optionOneText, optionTwoText, author) {
-  return (dispatch) => {
-
+  return (dispatch, getState) => {
+    const  { authedUser } = getState();
+    const authedUserQuestion = authedUser;
     return _saveQuestion({
       optionOneText,
       optionTwoText,
       author,
     })
-      .then((question) => dispatch(addQuestion(question)))
+      .then((question) => {
+        dispatch(addQuestion(question))
+        dispatch(saveUserQuestion({question, authedUserQuestion}))
+       })
       .then(() => dispatch(hideLoading()));
   }
 }

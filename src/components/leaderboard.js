@@ -1,6 +1,15 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Leaderboard = ({ users }) => {
+const Leaderboard = ({ authedUser, users }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!authedUser) {
+      navigate('/login');
+    }
+  }, []);
 
   return (
     <div className="dashboard">
@@ -34,7 +43,7 @@ const Leaderboard = ({ users }) => {
   )
 }
 
-const mapStateToProps = ({ users }) => {
+const mapStateToProps = ({ authedUser, users }) => {
   let usersArray = [];
 
   if(users) {
@@ -51,6 +60,7 @@ const mapStateToProps = ({ users }) => {
   usersArray.sort((a, b) => b.score - a.score);
 
   return {
+    authedUser,
     users: usersArray
   };
 }

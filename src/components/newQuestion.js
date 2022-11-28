@@ -13,7 +13,7 @@ const NewQuestion = ({ dispatch, authedUser }) => {
     if(!authedUser) {
       navigate('/login');
     }
-  }, [])
+  }, []);
 
   const handleSubmit = () => {
     const firstOption = firstOptionInput.current.value;
