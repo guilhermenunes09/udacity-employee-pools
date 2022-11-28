@@ -17,7 +17,6 @@ const withRouter = (Component) => {
 const QuestionPage = ({
     dispatch, 
     question, 
-    users, 
     question_id, 
     avatar, 
     authedUser, 
@@ -39,7 +38,7 @@ const QuestionPage = ({
         !question.optionTwo.votes.includes(authedUser)) {
           dispatch(handleSaveQuestionAnswer(question_id, "optionOne"));
       }
-  }
+  };
   
   const submitOptionTwo = (e) => {
     e.preventDefault();
@@ -47,24 +46,28 @@ const QuestionPage = ({
         !question.optionTwo.votes.includes(authedUser)) {
           dispatch(handleSaveQuestionAnswer(question_id, "optionTwo"));
       }
-  }
+  };
 
   useEffect(() => {
     if(!authedUser) {
       navigate('/login');
     }
-  }, [])
+  }, []);
 
   return (
     <div className="poll-page">
       <h3>Poll by {authorName}</h3>
+
       <div>
         <img width={200} height={200} src={`\\${avatar}`} />
       </div>
+
       <h3>Would You Rather...</h3>
+
       <div className="poll-options">
         <div className="option">
           <h4>{optionOneText}</h4>
+
           <button
             className={optionOneIncludesAuthedUser ? 'btn-pressed' : 'btn-action'}
             disabled={
@@ -76,8 +79,10 @@ const QuestionPage = ({
               Option 1
           </button>
         </div>
+
         <div className="option">
           <h4>{optionTwoText}</h4>
+
           <button
             className={optionTwoIncludesAuthedUser ? 'btn-pressed' : 'btn-action'}
             disabled={
@@ -90,13 +95,14 @@ const QuestionPage = ({
           </button>
         </div>
       </div>
+
       <div className="poll-page-choice">
         <ul>
           { optionOneIncludesAuthedUser && (
-            <div>Would You Rather <strong>{`${optionOneText}`}</strong></div>
+            <div>You rather <strong>{`${optionOneText}`}</strong></div>
           )}
           { optionTwoIncludesAuthedUser && (
-            <div>Would You Rather <strong>{`${optionTwoText}`}</strong></div>
+            <div>You rather <strong>{`${optionTwoText}`}</strong></div>
           )}
         </ul>
 
@@ -108,6 +114,7 @@ const QuestionPage = ({
             
             {optionOnePercentage}% people voted on this option
           </li>
+
           <li>
             <h5>Option 2</h5>
             {optionTwoVotesQuantity} votes<br/>
@@ -116,7 +123,6 @@ const QuestionPage = ({
           </li>
         </ul>
       </div>
-
     </div>
   )
 }
@@ -175,7 +181,7 @@ const mapStateToProps =({authedUser, questions, users = []}, props) => {
     }
   }
 
-  return { question, users }
+  return { question, users };
 }
 
 export default withRouter(connect(mapStateToProps)(QuestionPage));

@@ -66,6 +66,6 @@ const mapStateToProps = ({ authedUser, users }) => {
     authedUser,
     users: usersArray
   };
-}
+};
 
 export default connect(mapStateToProps)(Leaderboard);

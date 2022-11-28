@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import Question from "./question";
 
+
 const Dashboard = ({authedUser, questions, questionIds}) => {
 
   return (
     <div className="dashboard">
-      
       { authedUser && (
         <h3 className="h-title">New Questions</h3>
       )}
@@ -13,7 +13,6 @@ const Dashboard = ({authedUser, questions, questionIds}) => {
         <h3 className="h-title">Questions</h3>
       )}
       
-
       <ul>
         {
           questionIds && questionIds.map((id) => {
@@ -33,7 +32,7 @@ const Dashboard = ({authedUser, questions, questionIds}) => {
       { authedUser && (
         <h3 className="h-title">Answered</h3>
       )}
-      
+
       <ul>
         {
           questionIds && questionIds.map((id) => {
@@ -61,7 +60,7 @@ const mapStateToProps = ({ authedUser, questions }) => {
     questionIds: Object.keys(questions).sort(
       (a, b) => questions[b].timestamp - questions[a].timestamp
     ),
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Dashboard);

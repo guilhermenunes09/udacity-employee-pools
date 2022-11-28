@@ -1,7 +1,7 @@
-import { useTransition } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../store/actions/authedUser";
+
 
 const Nav = ({dispatch, authedUser, user}) => {
   const navigate = useNavigate();
@@ -21,7 +21,6 @@ const Nav = ({dispatch, authedUser, user}) => {
       </ul>
 
       <ul className="nav-avatar">
-
         <ul>
           <li>
             {user && user.avatarURL && (
@@ -40,8 +39,6 @@ const Nav = ({dispatch, authedUser, user}) => {
             )}
           </li>
         </ul>
-
-
       </ul>
     </div>
   )
@@ -53,6 +50,6 @@ const mapStateToProps = ({ authedUser, users }) => {
     authedUser,
     user
   };
-}
+};
 
 export default connect(mapStateToProps)(Nav);

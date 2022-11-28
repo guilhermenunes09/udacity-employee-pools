@@ -4,12 +4,12 @@ import {
   _saveQuestion,
   _saveQuestionAnswer
 } from "../../utils/_DATA";
-
 import { saveUserAnswer, saveUserQuestion } from "./users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const SAVE_QUESTION_ANSWER = "SAVE_QUESTION_ANSWER";
+
 
 function addQuestion(question) {
   return {
@@ -35,7 +35,7 @@ export function saveQuestionAnswer(answer) {
 export function handleSaveQuestionAnswer(qid, answer) {
   return (dispatch, getState) => {
     const  { authedUser } = getState();
-    console.log('authed user', authedUser)
+
     return _saveQuestionAnswer({
       authedUser,
       qid,
@@ -58,10 +58,10 @@ export function handleAddQuestion(optionOneText, optionTwoText, author) {
       optionTwoText,
       author,
     })
-      .then((question) => {
-        dispatch(addQuestion(question))
-        dispatch(saveUserQuestion({question, authedUserQuestion}))
-       })
-      .then(() => dispatch(hideLoading()));
+    .then((question) => {
+      dispatch(addQuestion(question))
+      dispatch(saveUserQuestion({question, authedUserQuestion}))
+      })
+    .then(() => dispatch(hideLoading()));
   }
 }

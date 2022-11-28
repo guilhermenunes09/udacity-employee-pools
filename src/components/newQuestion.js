@@ -53,7 +53,7 @@ const NewQuestion = ({ dispatch, authedUser }) => {
 const mapStateToProps = ({ authedUser }) => {
   return {
     authedUser
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(NewQuestion);

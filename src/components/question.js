@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
-import { Link, useNavigate } from "react-router-dom";
-import { formatQuestion } from "../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const Question = (props) => {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const mapStateToProps = ({ authedUser, questions }, {id}) => {
   return {
     authedUser,
     question: question ? question : null,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Question);

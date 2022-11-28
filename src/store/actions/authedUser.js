@@ -4,6 +4,7 @@ import { hideLoading } from "react-redux-loading-bar";
 export const SET_AUTHED_USER = "SET_AUTHED_USERS";
 export const LOGOUT = "LOGOUT";
 
+
 export function setAuthedUser(id) {
    return {
       type: SET_AUTHED_USER,
@@ -19,7 +20,6 @@ export function logout() {
 
 export function handleAuthenticate(username, password) {
    return (dispatch) => {
-
       return _authenticate({
          username,
          password
