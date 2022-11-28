@@ -23,7 +23,7 @@ const App = (props) => {
       <div className="App">
         <Nav />
         { !props.loading && (
-          <switch>
+
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/questions/:question_id" exact element={<QuestionPage />} />
@@ -32,7 +32,7 @@ const App = (props) => {
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          </switch>
+
         )}
       </div>
     </Fragment>

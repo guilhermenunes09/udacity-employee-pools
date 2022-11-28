@@ -15,29 +15,32 @@ const Leaderboard = ({ authedUser, users }) => {
     <div className="dashboard">
       <h3 className="h-title">Leaderboard</h3>
       <table id="leaderboard-table">
-        <tr>
+        <thead>
+          <tr>
           <th>Users</th>
           <th>Answered</th>
           <th>Created</th>
-        </tr>
-        { Array.isArray(users) && users.map((user) => (
-          <tr key={user.id}>
-            <td className="td-name">
-              
-              <div className="leaderboard-user-card">
-                <img className="leaderboard-img" width={40} height={40} src={user.avatarURL}/>
-                <div>
-                  <div className="leaderboard-name">{ user.name }</div>            
-                  <div className="leaderboard-id"> { user.id } </div>
-                </div>
-              </div>
-              
-            </td>
-            <td>{ Object.keys(user.answers).length }</td>
-            <td>{ Object.keys(user.questions).length }</td>
           </tr>
-        ))}
-        
+        </thead>
+        <tbody>
+          { Array.isArray(users) && users.map((user) => (
+            <tr key={user.id}>
+              <td className="td-name">
+                
+                <div className="leaderboard-user-card">
+                  <img className="leaderboard-img" width={40} height={40} src={user.avatarURL}/>
+                  <div>
+                    <div className="leaderboard-name">{ user.name }</div>            
+                    <div className="leaderboard-id"> { user.id } </div>
+                  </div>
+                </div>
+                
+              </td>
+              <td>{ Object.keys(user.answers).length }</td>
+              <td>{ Object.keys(user.questions).length }</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   )

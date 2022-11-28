@@ -209,7 +209,7 @@ input {
   display: flex;
   text-align: center;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   padding-right: 1em;
 }
 
