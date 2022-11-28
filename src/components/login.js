@@ -23,9 +23,9 @@ const Login = ({ dispatch }) => {
     <div className="dashboard">
       <h3 className="h=title">Login</h3>
       <label>Username</label>
-      <input className='login-input' ref={userInput} />
+      <input defaultValue={"sarahedo"} className='login-input' ref={userInput} />
       <label>password</label>
-      <input type="password" className='login-input' ref={passwordInput} />
+      <input defaultValue={"password123"} type="password" className='login-input' ref={passwordInput} />
       <div>
         <button className='btn-action' onClick={handleSubmit}>Submit</button>
       </div>

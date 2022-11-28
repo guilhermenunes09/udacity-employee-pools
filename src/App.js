@@ -10,6 +10,7 @@ import LoadingBar from "react-redux-loading-bar";
 import Nav from './components/Nav';
 import Leaderboard from './components/leaderboard';
 import Login from './components/login';
+import NotFound from './components/notFound';
 
 const App = (props) => {
   useEffect(() => {
@@ -18,31 +19,37 @@ const App = (props) => {
 
   return (
     <Fragment>
-      <LoadingBar />
+      <LoadingBar style={{ backgroundColor: 'blue', height: '5px' }} />
       <div className="App">
         <Nav />
-        { props.loading === true && !props.authedUser && (
+        { !props.loading && !props.authedUser && (
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>
         )}
+        { !props.loading && (
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
-            <Route path="/question/:id" element={<QuestionPage />} />
+            <Route path="/questions/:question_id" element={<QuestionPage />} />
             <Route path="/new" element={<NewQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route component={NotFound} />
           </Routes>
+        )}
       </div>
     </Fragment>
   );
 }
 
-const mapStateToProps = ({authedUser}) => (
-  {
-    loading: authedUser === null,
+const mapStateToProps = ({authedUser, loadingBar}) => {
+  const loading = loadingBar.default;
+  console.log('loading', loading)
+ 
+  return {
+    loading,
     authedUser
   }
-)
+}
 
 
 export default connect(mapStateToProps)(App);

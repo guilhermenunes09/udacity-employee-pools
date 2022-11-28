@@ -1,16 +1,25 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import Question from "./question";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = (props) => {
+const Dashboard = ({authedUser, questions, questionIds}) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!authedUser) {
+      navigate('/login');
+    }
+  }, [])
 
   return (
     <div className="dashboard">
       <h3 className="h-title">New Questions</h3>
       <ul>
         {
-          props.questionIds && props.questionIds.map((id) => {
-            if (!props.questions[id].optionOne.votes.includes(props.authedUser) &&
-                !props.questions[id].optionTwo.votes.includes(props.authedUser)
+          questionIds && questionIds.map((id) => {
+            if (!questions[id].optionOne.votes.includes(authedUser) &&
+                !questions[id].optionTwo.votes.includes(authedUser)
             ) {
               return (
                 <li className="small-question-card" key={id}>
@@ -25,9 +34,9 @@ const Dashboard = (props) => {
       <h3 className="h-title">Done</h3>
       <ul>
         {
-          props.questionIds && props.questionIds.map((id) => {
-            if (props.questions[id].optionOne.votes.includes(props.authedUser) || 
-                props.questions[id].optionTwo.votes.includes(props.authedUser)
+          questionIds && questionIds.map((id) => {
+            if (questions[id].optionOne.votes.includes(authedUser) || 
+                questions[id].optionTwo.votes.includes(authedUser)
             ) {
               return (
                 <li className="small-question-card" key={id}>

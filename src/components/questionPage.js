@@ -14,14 +14,30 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
+const QuestionPage = ({
+    dispatch, 
+    question, 
+    users, 
+    question_id, 
+    avatar, 
+    authedUser, 
+    optionOnePercentage, 
+    optionTwoPercentage,
+    authorName,
+    optionOneText,
+    optionTwoText,
+    optionOneIncludesAuthedUser,
+    optionTwoIncludesAuthedUser,
+    optionOneVotesQuantity,
+    optionTwoVotesQuantity
+  }) => {
   const navigate = useNavigate();
   
   const submitOptionOne = (e) => {
     e.preventDefault();
     if (!question.optionOne.votes.includes(authedUser) && 
         !question.optionTwo.votes.includes(authedUser)) {
-          dispatch(handleSaveQuestionAnswer(id, "optionOne"));
+          dispatch(handleSaveQuestionAnswer(question_id, "optionOne"));
       }
   }
   
@@ -29,7 +45,7 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
     e.preventDefault();
     if (!question.optionOne.votes.includes(authedUser) && 
         !question.optionTwo.votes.includes(authedUser)) {
-          dispatch(handleSaveQuestionAnswer(id, "optionTwo"));
+          dispatch(handleSaveQuestionAnswer(question_id, "optionTwo"));
       }
   }
 
@@ -41,18 +57,19 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
 
   return (
     <div className="poll-page">
-      <h3>Poll by {users[question.author].name}</h3>
+      <h3>Poll by {authorName}</h3>
       <div>
         <img width={200} height={200} src={`\\${avatar}`} />
       </div>
+      <h3>Would You Rather...</h3>
       <div className="poll-options">
         <div className="option">
-          <h4>{question.optionOne.text}</h4>
+          <h4>{optionOneText}</h4>
           <button
-            className={question.optionOne.votes.includes(authedUser) ? 'btn-pressed' : 'btn-action'}
+            className={optionOneIncludesAuthedUser ? 'btn-pressed' : 'btn-action'}
             disabled={
-              question.optionOne.votes.includes(authedUser) ||
-              question.optionTwo.votes.includes(authedUser)
+              optionOneIncludesAuthedUser ||
+              optionTwoIncludesAuthedUser
             }
             onClick={submitOptionOne}
           >
@@ -60,12 +77,12 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
           </button>
         </div>
         <div className="option">
-          <h4>{question.optionTwo.text}</h4>
+          <h4>{optionTwoText}</h4>
           <button
-            className={question.optionTwo.votes.includes(authedUser) ? 'btn-pressed' : 'btn-action'}
+            className={optionTwoIncludesAuthedUser ? 'btn-pressed' : 'btn-action'}
             disabled={
-              question.optionOne.votes.includes(authedUser) ||
-              question.optionTwo.votes.includes(authedUser)
+              optionOneIncludesAuthedUser ||
+              optionTwoIncludesAuthedUser
             }
             onClick={submitOptionTwo}
           >
@@ -74,24 +91,88 @@ const QuestionPage = ({dispatch, question, users, id, avatar, authedUser}) => {
         </div>
       </div>
       <div className="poll-page-choice">
-        { question.optionOne.votes.includes(authedUser) && (
-          <div>Would You Rather <strong>{`${question.optionOne.text}`}</strong></div>
-        )}
-        { question.optionTwo.votes.includes(authedUser) && (
-          <div>Would You Rather <strong>{`${question.optionTwo.text}`}</strong></div>
-        )}
+        <ul>
+          { optionOneIncludesAuthedUser && (
+            <div>Would You Rather <strong>{`${optionOneText}`}</strong></div>
+          )}
+          { optionTwoIncludesAuthedUser && (
+            <div>Would You Rather <strong>{`${optionTwoText}`}</strong></div>
+          )}
+        </ul>
+
+
+        <ul className="poll-page-choice">
+          <li>
+            <h5>Option 1</h5>
+            {optionOneVotesQuantity} votes<br/>
+            
+            {optionOnePercentage}% people voted on this option
+          </li>
+          <li>
+            <h5>Option 2</h5>
+            {optionTwoVotesQuantity} votes<br/>
+            
+            {optionTwoPercentage}% people voted on this option
+          </li>
+        </ul>
       </div>
 
     </div>
   )
 }
 
-const mapStateToProps =({authedUser, questions, users}, props) => { 
-  const {id} = props.router.params;
-  const question = questions[id];
-  const avatar = users[question.author].avatarURL
-  if(id) {
-    return { id, question, users, authedUser, avatar }
+const mapStateToProps =({authedUser, questions, users = []}, props) => { 
+  let avatar;
+  let users_quantity = 0;
+  let optionOnePercentage = null;
+  let optionTwoPercentage = null;
+  let authorName = "";
+  let optionOneText = "";
+  let optionTwoText = "";
+  let optionOneIncludesAuthedUser = null;
+  let optionTwoIncludesAuthedUser = null;
+  let optionOneVotesQuantity = 0;
+  let optionTwoVotesQuantity = 0;
+
+  const {question_id} = props.router.params;
+  const question = questions[question_id];
+
+  if(Object.keys(users).length > 0) {
+    if(question) {
+      avatar = users[question.author].avatarURL;
+      authorName = users[question.author].name;
+    }
+    users_quantity = Object.keys(users).length;
+  }
+
+  if(question) {
+    optionOnePercentage = (question.optionOne.votes.length * 100)/users_quantity;
+    optionTwoPercentage = (question.optionTwo.votes.length * 100)/users_quantity;
+    optionOneText = question.optionOne.text;
+    optionTwoText = question.optionTwo.text;
+    optionOneIncludesAuthedUser = question.optionOne.votes.includes(authedUser);
+    optionTwoIncludesAuthedUser = question.optionTwo.votes.includes(authedUser);
+    optionOneVotesQuantity = question.optionOne.votes.length;
+    optionTwoVotesQuantity = question.optionTwo.votes.length;
+  }
+
+  if(question_id) {
+    return { 
+      question_id, 
+      question, 
+      users, 
+      authedUser, 
+      avatar, 
+      optionOnePercentage, 
+      optionTwoPercentage,
+      authorName,
+      optionOneText,
+      optionTwoText,
+      optionOneIncludesAuthedUser,
+      optionTwoIncludesAuthedUser,
+      optionOneVotesQuantity,
+      optionTwoVotesQuantity
+    }
   }
 
   return { question, users }
