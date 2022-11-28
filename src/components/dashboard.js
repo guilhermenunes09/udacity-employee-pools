@@ -31,7 +31,7 @@ const Dashboard = ({authedUser, questions, questionIds}) => {
         }
       </ul>
       
-      <h3 className="h-title">Done</h3>
+      <h3 className="h-title">Answered</h3>
       <ul>
         {
           questionIds && questionIds.map((id) => {

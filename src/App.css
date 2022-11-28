@@ -223,3 +223,53 @@ input {
   justify-content: center;
   align-self: center;
 }
+
+#leaderboard-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+}
+
+#leaderboard-table td, #leaderboard-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.td-name {
+  text-align: right;
+  width: 250px;
+}
+
+#leaderboard-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#leaderboard-table tr:hover {background-color: #ddd;}
+
+#leaderboard-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e3ebe7;
+  color: rgb(31, 30, 30);
+}
+
+.leaderboard-user-card {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+}
+
+.leaderboard-img {
+  margin-right: .5em;
+}
+
+.leaderboard-name {
+  font-weight: 600;
+}
+
+.leaderboard-id {
+  color: gray;
+}
