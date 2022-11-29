@@ -29,7 +29,8 @@ const App = (props) => {
             <Route path="/questions/:question_id" exact element={<QuestionPage />} />
             <Route path="/add" exact element={<NewQuestion />} />
             <Route path="/leaderboard" exact element={<Leaderboard />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login/:qid" element={<Login />} />
+            <Route path="/login/" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 

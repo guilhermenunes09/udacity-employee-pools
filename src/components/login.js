@@ -2,8 +2,11 @@ import { connect } from 'react-redux';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleAuthenticate } from '../store/actions/authedUser';
+import { useLocation } from 'react-router-dom';
 
-const Login = ({ dispatch }) => {
+
+const Login = (props) => {
+  let location = useLocation();
   const [failed, setFailed] = useState(false);
   const navigate = useNavigate();
   const userInput = useRef();
@@ -13,8 +16,12 @@ const Login = ({ dispatch }) => {
     const user = userInput.current.value;
     const password = passwordInput.current.value;
 
-    dispatch(handleAuthenticate(user, password)).then(() => {
-      navigate('/');
+    props.dispatch(handleAuthenticate(user, password)).then(() => {
+      if(location.state && location.state.qid) {
+        navigate(`/questions/${location.state.qid}`)
+      } else {
+        navigate('/');
+      }
     }).catch(() => {
       setFailed(true);
     });

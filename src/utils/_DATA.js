@@ -25,7 +25,7 @@ let users = {
   },
   mtsamis: {
     id: 'mtsamis',
-    pasword:'xyz123s',
+    password:'xyz123s',
     name: 'Mike Tsamis',
     avatarURL: 'avatar_mtsamis.svg',
     answers: {
@@ -128,7 +128,7 @@ let questions = {
     author: 'mtsamis',
     timestamp: 1493579767190,
     optionOne: {
-      votes: ['mtsamis', 'zoshikanlu'],
+      votes: ['mtsamis', 'zoshikanlu', 'gn09'],
       text: 'deploy to production once every two weeks',
     },
     optionTwo: {

@@ -1,56 +1,49 @@
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Question from "./question";
+import { useNavigate } from "react-router-dom";
+import UnAnsweredQuestions from "./unAnsweredQuestions";
+import AnsweredQuestions from "./answeredQuestions";
 
 
 const Dashboard = ({authedUser, questions, questionIds}) => {
+  const navigate = useNavigate();
+  const [view, setView] = useState("unanswered");
+
+  useEffect(() => {
+    if(!authedUser) {
+      navigate('/login');
+    }
+  }, []);
+
+  const alternateQuestionType = (type) => {
+    setView(type);
+  }
 
   return (
     <div className="dashboard">
-      { authedUser && (
-        <h3 className="h-title">New Questions</h3>
-      )}
-      { !authedUser && (
-        <h3 className="h-title">Questions</h3>
-      )}
+      { view === "unanswered" ? <h3 className="h-title">Unanswered Questions</h3> : <h3 className="h-title">Answered Questions</h3>}
       
-      <ul>
-        {
-          questionIds && questionIds.map((id) => {
-            if (!questions[id].optionOne.votes.includes(authedUser) &&
-                !questions[id].optionTwo.votes.includes(authedUser)
-            ) {
-              return (
-                <li className="small-question-card" key={id}>
-                  <Question done={false} id={id} />
-                </li>
-              )}
-            }
-          )
-        }
-      </ul>
+      <button 
+        className="btn-action"
+        onClick={() => alternateQuestionType("answered")}
+        disabled={view === "answered"}
+      >
+          Answered
+      </button>
       
-      { authedUser && (
-        <h3 className="h-title">Answered</h3>
-      )}
+      <button 
+        className="btn-action"
+        onClick={() => alternateQuestionType("unanswered")}
+        disabled={view === "unanswered"}
+      >
+        Unanswered
+      </button>
 
-      <ul>
-        {
-          questionIds && questionIds.map((id) => {
-            if (questions[id].optionOne.votes.includes(authedUser) || 
-                questions[id].optionTwo.votes.includes(authedUser)
-            ) {
-              return (
-                <li className="small-question-card" key={id}>
-                  <Question done={true} id={id} />
-                </li>
-              )}
-            }
-          )
-        }
-      </ul>
+      { view === "unanswered" ? <UnAnsweredQuestions /> : <AnsweredQuestions />}
     </div>
   )
 }
+
 
 const mapStateToProps = ({ authedUser, questions }) => {
 

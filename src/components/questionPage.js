@@ -17,6 +17,7 @@ const withRouter = (Component) => {
 const QuestionPage = ({
     dispatch, 
     question, 
+    questions,
     question_id, 
     avatar, 
     authedUser, 
@@ -50,7 +51,19 @@ const QuestionPage = ({
 
   useEffect(() => {
     if(!authedUser) {
-      navigate('/login');
+      navigate('/login',{
+        state:{
+          qid: question_id
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if(authedUser) {
+      if(!questions[question_id]) {
+        navigate('/notfound');
+      }
     }
   }, []);
 
@@ -166,6 +179,7 @@ const mapStateToProps =({authedUser, questions, users = []}, props) => {
     return { 
       question_id, 
       question, 
+      questions,
       users, 
       authedUser, 
       avatar, 

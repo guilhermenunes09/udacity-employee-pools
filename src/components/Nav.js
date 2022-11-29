@@ -6,10 +6,10 @@ import { logout } from "../store/actions/authedUser";
 const Nav = ({dispatch, authedUser, user}) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout()).then(() => {
-      navigate('/login');
-    });
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    navigate('/login');
   }
 
   return (
